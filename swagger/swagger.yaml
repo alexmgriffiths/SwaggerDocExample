@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: Swagger Example
+  description: Example swagger documentation
+  version: 1.0.0
+servers:
+  - url: api.joelsapp.io
+    description: Prod server
+  - url: stagingapi.joelsapp.io
+    description: Staging server
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      # description: optional second description
+      responses:
+        '200':
+          description: Returns all users successfully
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/definitions/User"
+  /users/{id}:
+    get:
+        summary: Returns a specific user.
+        produces:
+          - "application/json"
+        parameters:
+          - name: "id"
+            in: "path"
+            description: "ID of the user"
+            required: true
+            type: "number"
+        responses:
+            '200':
+                description: Returns a specific user
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/definitions/User"
+definitions:
+  User:
+    type: "object"
+    properties:
+      user_id:
+        type: "integer"
+        description: "User's ID"
+      user_name:
+        type: "string"
+        description: "User's name"
+      user_email:
+        type: "string"
+        description: "User's email"
